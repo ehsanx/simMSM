@@ -1,0 +1,10 @@
+Package: simMSM
+Type: Package
+Title: Simulate Data for Marginal Structural Model
+Version: 0.1
+Date: 2016-10-05
+Author: Ehsan Karim
+Maintainer: Ehsan Karim <ehsan@alumni.ubc.ca>
+Description: Simulates data suitable for fitting Marginal Structural Model.
+License: GPL-2
+LazyData: TRUE
