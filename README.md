@@ -1,6 +1,6 @@
 # simMSM
 ### R package to generate data suitable for Marginal Structural Cox Model fit
-* This package simulates data suitable for fitting Marginal Structural Model.
+* This package simulates survival data suitable for fitting Marginal Structural Model.
 
 ## Installation
 ```R
@@ -23,7 +23,7 @@ require(simMSM)
 setwd("C:/data") # change working dir
 ```
 
-## Using simmsm command to generate data in the wording directory
+## Using this pckage to generate data in the working directory
 ```R
 simmsm(subjects = 2500, tpoints = 10, psi = 0.3, n = 1000)
 # This code generates 1000 datasets (takes time!)
