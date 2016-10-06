@@ -27,20 +27,22 @@ setwd("C:/data") # change working dir
 ```R
 simmsm(subjects = 2500, tpoints = 10, psi = 0.3, n = 5)
 ```
-- [x] *subjects*: Number of Subjects in each simulated dataset
-- [x] *tpoints*: Maximum number of time-points each subjects are followed
-- [x] *psi*: Causal effect parameter for Marginal Structural Model
-- [x] *n*: Number of simulated datasets an user wants to generate
-
-|    **Item**    | **Status** |
+|    **Parameter**    | **Description** |
 |----------------|------------|
-| *subjects*  | :Number of Subjects in each simulated dataset: |
-| *tpoints*      | :Maximum number of time-points each subjects are followed:   |
-| *psi* | :Causal effect parameter for Marginal Structural Model:  |
-| *n* | :Number of simulated datasets an user wants to generate:  |
+| *subjects*  | Number of Subjects in each simulated dataset: |
+| *tpoints*      | Maximum number of time-points each subjects are followed:   |
+| *psi* | Causal effect parameter for Marginal Structural Model:  |
+| *n* | Number of simulated datasets an user wants to generate:  |
 
 ### Author 
 * Ehsan Karim (R porting from SAS)
 
 ### Original Paper
-* Young J.G., Hernan M.A., Picciotto S., and Robins J.M. [Relation between three classes of structural models for the effect of a time-varying exposure on survival](http://link.springer.com/article/10.1007/s10985-009-9135-3). Lifetime Data Analysis, 16(1):71-84, 2010. 
+- [x] Young J.G., Hernan M.A., Picciotto S., and Robins J.M. [Relation between three classes of structural models for the effect of a time-varying exposure on survival](http://link.springer.com/article/10.1007/s10985-009-9135-3). Lifetime Data Analysis, 16(1):71-84, 2010. 
+- [] Young, Jessica G., et al. Simulation from structural survival models under complex time-varying data structures. JSM proceedings, section on statistics in epidemiology. American Statistical Association, Denver, CO (2008)
+
+### Follow-up References
+- [] Ali R.A., Ali M.A., and Wei Z. [On computing standard errors for marginal structural cox models](http://link.springer.com/article/10.1007%2Fs10985-013-9255-7). Lifetime data analysis, pages 1–26, 2013. doi: 10.1007/s10985-013-9255-7.
+- [] Xiao Y., Abrahamowicz M., and Moodie E.E.M. [Accuracy of conventional and marginal structural Cox model estimators: A simulation study](http://www.degruyter.com/view/j/ijb.2010.6.2/ijb.2010.6.2.1208/ijb.2010.6.2.1208.xml?format=INT). The International Journal of Biostatistics, 6(2):1–28, 2010. 
+- [] Karim, M. E.; Petkau, J.; Gustafson, P.; Platt, R.; Tremlett, H. and BeAMS study group. [Comparison of Statistical Approaches Dealing with Time-dependent Confounding in Drug Eﬀectiveness Studies](http://smm.sagepub.com/content/early/2016/09/21/0962280216668554.abstract). Statistical Methods in Medical Research. First published online: September 21. doi: 10.1177/0962280216668554
+- [] Karim, M. E.; Petkau, J.; Gustafson, P.; Tremlett, H. and BeAMS study group. [On the application of statistical learning approaches to construct inverse probability weights in marginal structural Cox models: hedging against weight-model misspeciﬁcation](http://www.tandfonline.com/toc/lssp20/current). Communications in Statistics - Simulation and Computation (In Press).
