@@ -23,7 +23,7 @@ require(simMSM)
 setwd("C:/data") # change working dir
 ```
 
-## Using this pckage to generate data in the working directory
+## Using this package to generate data in the working directory
 ```R
 simmsm(subjects = 2500, tpoints = 10, psi = 0.3, n = 1000)
 # This code generates 1000 datasets (takes time!)
