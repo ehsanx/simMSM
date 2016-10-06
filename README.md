@@ -1,4 +1,5 @@
-# simMSM: an R package to generate data suitable for Marginal Structural Cox Model fit
+# simMSM
+### An R package to generate data suitable for Marginal Structural Cox Model fit
 * This package simulates data suitable for fitting Marginal Structural Model.
 
 ## Installation
