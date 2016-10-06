@@ -8,16 +8,24 @@ install_github("ehsanx/simMSM")
 ```
 
 ## Loading the package
-* require(simMSM)
+```R
+require(simMSM)
+```
 
 ## Pulling the help file
-* ?simmsm
+```R
+?simmsm
+```
 
 ## Setting working directory to save the generated datafiles
-* setwd("C:/data") # change working dir
+```R
+setwd("C:/data") # change working dir
+```
 
 ## Using simmsm command to generate data in the wording directory
-* simmsm(subjects = 2500, tpoints = 10, psi = 0.3, n = 5)
+```R
+simmsm(subjects = 2500, tpoints = 10, psi = 0.3, n = 5)
+```
 
 ### Author 
 * Ehsan Karim (R porting from SAS)
