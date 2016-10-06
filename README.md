@@ -39,7 +39,7 @@ simmsm(subjects = 2500, tpoints = 10, psi = 0.3, n = 1000)
 | *n* | Number of simulated datasets an user wants to generate  |
 
 ### Author 
-* Ehsan Karim :octocat: (R porting from SAS) 
+* Ehsan Karim :octocat: (R porting from [SAS](https://cdn1.sph.harvard.edu/wp-content/uploads/sites/148/2012/10/simulate_snaftm.txt)) 
 
 ### Original Papers
 - [x] Young J.G., Hernan M.A., Picciotto S., and Robins J.M. [Relation between three classes of structural models for the effect of a time-varying exposure on survival](http://link.springer.com/article/10.1007/s10985-009-9135-3). Lifetime Data Analysis, 16(1):71-84, 2010. 
@@ -52,4 +52,4 @@ simmsm(subjects = 2500, tpoints = 10, psi = 0.3, n = 1000)
 - [ ] Karim, M. E.; Petkau, J.; Gustafson, P.; Tremlett, H. and BeAMS study group. [On the application of statistical learning approaches to construct inverse probability weights in marginal structural Cox models: hedging against weight-model misspeciﬁcation](http://www.tandfonline.com/toc/lssp20/current). Communications in Statistics - Simulation and Computation (In Press).
 
 ### Related web-Apps
-- [ ] [Causal Inference Web-Apps](http://www.ehsankarim.com/software/webapps)
+- [x] [Causal Inference Web-Apps](http://www.ehsankarim.com/software/webapps)
