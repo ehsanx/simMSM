@@ -26,7 +26,7 @@ setwd("C:/data") # change working dir
 ## Using simmsm command to generate data in the wording directory
 ```R
 simmsm(subjects = 2500, tpoints = 10, psi = 0.3, n = 1000)
-# 1000 datasets
+# This code generates 1000 datasets (takes time!)
 # 2500 subjects in each datasets
 # Each subject followed upto 10 time-points (say, months)
 # Causal effect (log-odds) is 0.3
