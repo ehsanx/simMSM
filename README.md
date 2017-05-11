@@ -1,6 +1,6 @@
 # simMSM
 #### Maintainer: *Ehsan Karim* 
-#### I am a big fan of *scientific collaboration*. Feel free to [contact me](http://www.ehsankarim.com) to discuss potential projects where I could help.
+#### I am a big fan of *scientific collaboration*. Feel free to [contact me](http://www.ehsankarim.com) to discuss your causal inference related projects for potential collaboration.
 ### R package to generate data suitable for Marginal Structural Cox Model fit
 * This package simulates survival data suitable for fitting Marginal Structural Model.
 
