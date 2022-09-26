@@ -42,6 +42,8 @@ simmsm(subjects = 2500, tpoints = 10, psi = 0.3, n = 1000)
 
 ## Estimation of parameter
 
+Below is an example where we generate 10,000 subjects, each with up to 10 followup times. Log-odds is 0.3.
+
 ```R
 require(simMSM)
 simmsm(subjects = 10000, tpoints = 10, psi = 0.3, n = 1)
@@ -61,7 +63,10 @@ head(aggregate.data)
 #4                1
 #5                1
 #6                1
-# helper function to extract results
+```
+
+Here is a helper function to extract results
+```R
 ext.cox <- function(fit){
   x <- summary(fit)
   b.se <- ifelse(x$used.robust == TRUE, x$coef["A","robust se"], x$coef["A","se(coef)"])
@@ -77,7 +82,11 @@ ext.cox <- function(fit){
   names(res) <- c("n", "events", "coef", "se", "lowerci", "upperci", "pval", "robust", "meanW", "minW", "maxW")
   return(res)
 }
+```
 
+Below are codes of estimating weights
+
+```R
 ww <- glm(A ~ tpoint + L + Am1 + Lm1, family = binomial(logit), data = aggregate.data)
 # Step 2: Weight numerator model
 ww0 <- glm(A ~ tpoint + Am1, family = binomial(logit), data = aggregate.data)
@@ -91,6 +100,10 @@ summary(aggregate.data$sw)
 #   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 # 0.1396  0.7329  0.9091  1.0013  1.1788  6.2040 
 require(survival)
+
+Below are codes of estimating treatment effect from the weighted outcome model
+
+```R
 # Step 5: Weighted outcome model
 fit.msm.w <- coxph(Surv(tpoint2, tpoint, Y) ~ A + cluster(id), data = aggregate.data, weight = w, robust =TRUE)
 ext.cox(fit.msm.w)
@@ -100,14 +113,18 @@ ext.cox(fit.msm)
 #9.481300e+04 1.147000e+03 3.341396e-01 6.882629e-02 1.992425e-01 4.690367e-01 1.204931e-06 1.000000e+00 
 #       meanW         minW         maxW 
 #1.001264e+00 1.395881e-01 6.203989e+00 
-# Note that log-odds is 0.3, and you are getting back an estimate of 0.3341396
+```
+Note that log-odds is 0.3, and you are getting back an estimate of 0.3341396.
+
+Below are additional codes for unweighted models
+
+```R
 # Comparison with unweighted models
 fit.cox <- coxph(Surv(tpoint2, tpoint, Y) ~ A + cluster(id), data = aggregate.data, robust =TRUE)
 ext.cox(fit.cox)
 fit.cox.adj <- coxph(Surv(tpoint2, tpoint, Y) ~ A + L + cluster(id), data = aggregate.data, robust =TRUE)
 ext.cox(fit.cox.adj)
 ```
-
 ### Author 
 * Ehsan Karim :octocat: (only R porting from the [SAS](https://cdn1.sph.harvard.edu/wp-content/uploads/sites/148/2012/10/simulate_snaftm.txt) code). I wrote them in R basically to understand the mechanism, but the SAS / SAS IML / Stata codes (I have them as well, available upon request) are faster than this. Feel free to [report](http://www.ehsankarim.com/) any errors / update suggestions. 
 
@@ -120,6 +137,12 @@ ext.cox(fit.cox.adj)
 - [ ] Xiao Y., Abrahamowicz M., and Moodie E.E.M. [Accuracy of conventional and marginal structural Cox model estimators: A simulation study](http://www.degruyter.com/view/j/ijb.2010.6.2/ijb.2010.6.2.1208/ijb.2010.6.2.1208.xml?format=INT). The International Journal of Biostatistics, 6(2):1–28, 2010. 
 - [ ] Karim, M. E.; Petkau, J.; Gustafson, P.; Platt, R.; Tremlett, H. and BeAMS study group. [Comparison of Statistical Approaches Dealing with Time-dependent Confounding in Drug Eﬀectiveness Studies](http://smm.sagepub.com/content/early/2016/09/21/0962280216668554.abstract). Statistical Methods in Medical Research. First published online: September 21. doi: 10.1177/0962280216668554
 - [ ] Karim, M. E.; Petkau, J.; Gustafson, P.; Tremlett, H. and BeAMS study group. [On the application of statistical learning approaches to construct inverse probability weights in marginal structural Cox models: hedging against weight-model misspeciﬁcation](http://www.tandfonline.com/toc/lssp20/current). Communications in Statistics - Simulation and Computation (In Press).
+
+### Other related GitHub repos 
+
+- [ ] You can get additional descriptions of MSM analysis in this [GitHub repo](https://ehsanx.github.io/MSMsim/).
+- [ ] Stata users can take a look at this [GitHub repo](https://github.com/ehsanx/genMSM)
+
 
 ### Related web-Apps
 - [x] [Causal Inference Web-Apps](http://www.ehsankarim.com/software/webapps)
