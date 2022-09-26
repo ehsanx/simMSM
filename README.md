@@ -40,6 +40,74 @@ simmsm(subjects = 2500, tpoints = 10, psi = 0.3, n = 1000)
 | *psi* | Causal effect parameter for Marginal Structural Model  |
 | *n* | Number of simulated datasets an user wants to generate  |
 
+## Estimation of parameter
+
+```R
+require(simMSM)
+simmsm(subjects = 10000, tpoints = 10, psi = 0.3, n = 1)
+aggregate.data <- read.csv("r1.csv")
+head(aggregate.data)
+#  id tpoint tpoint2       T0 IT0      chk Y Ym A Am1 L Lm1 Am1L       pAt  T maxT        pL psi
+#1  1      1       0 75.51818   0 1.000000 0  0 0   0 0   0    0 0.2222222 NA   10 0.3000000 0.3
+#2  1      2       1 75.51818   0 2.000000 0  0 0   0 1   0    0 0.3202196 NA   10 0.3000000 0.3
+#3  1      3       2 75.51818   0 3.349859 0  0 1   0 1   1    0 0.4371436 NA   10 0.3913043 0.3
+#4  1      4       3 75.51818   0 4.699718 0  0 1   1 0   1    0 0.6532898 NA   10 0.2432432 0.3
+#5  1      5       4 75.51818   0 6.049576 0  0 1   1 0   0    0 0.5333333 NA   10 0.1764706 0.3
+#6  1      6       5 75.51818   0 7.049576 0  0 0   1 0   0    0 0.5333333 NA   10 0.1764706 0.3
+#  select.seed.valx
+#1                1
+#2                1
+#3                1
+#4                1
+#5                1
+#6                1
+# helper function to extract results
+ext.cox <- function(fit){
+  x <- summary(fit)
+  b.se <- ifelse(x$used.robust == TRUE, x$coef["A","robust se"], x$coef["A","se(coef)"])
+  if (is.null(fit$weights)) {
+    res <- as.numeric(c(x$n, x$nevent, x$coef["A","coef"], b.se, 
+                        confint(fit)["A",],x$coef["A", "Pr(>|z|)"], x$used.robust,
+                        rep(NA,3) ))
+  } else {
+    res <- as.numeric(c(x$n, x$nevent, x$coef["A","coef"], b.se, 
+                        confint(fit)["A",],x$coef["A", "Pr(>|z|)"], x$used.robust,
+                        mean(fit$weights), range(fit$weights) ))
+  }
+  names(res) <- c("n", "events", "coef", "se", "lowerci", "upperci", "pval", "robust", "meanW", "minW", "maxW")
+  return(res)
+}
+
+ww <- glm(A ~ tpoint + L + Am1 + Lm1, family = binomial(logit), data = aggregate.data)
+# Step 2: Weight numerator model
+ww0 <- glm(A ~ tpoint + Am1, family = binomial(logit), data = aggregate.data)
+# Step 3: Obtain fir from the weight models
+aggregate.data$wwp <- with(aggregate.data, ifelse(A == 0, 1 - fitted(ww), fitted(ww)))
+aggregate.data$wwp0 <- with(aggregate.data, ifelse(A == 0, 1 - fitted(ww0),fitted(ww0)))
+# Step 4: time-dependent weights
+aggregate.data$w <- unlist(tapply(1/aggregate.data$wwp, aggregate.data$id, cumprod))
+aggregate.data$sw <- unlist(tapply(aggregate.data$wwp0/aggregate.data$wwp, aggregate.data$id, cumprod))
+summary(aggregate.data$sw)
+#   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+# 0.1396  0.7329  0.9091  1.0013  1.1788  6.2040 
+require(survival)
+# Step 5: Weighted outcome model
+fit.msm.w <- coxph(Surv(tpoint2, tpoint, Y) ~ A + cluster(id), data = aggregate.data, weight = w, robust =TRUE)
+ext.cox(fit.msm.w)
+fit.msm <- coxph(Surv(tpoint2, tpoint, Y) ~ A + cluster(id), data = aggregate.data, weight = sw, robust =TRUE)
+ext.cox(fit.msm)
+#           n       events         coef           se      lowerci      upperci         pval       robust 
+#9.481300e+04 1.147000e+03 3.341396e-01 6.882629e-02 1.992425e-01 4.690367e-01 1.204931e-06 1.000000e+00 
+#       meanW         minW         maxW 
+#1.001264e+00 1.395881e-01 6.203989e+00 
+# Note that log-odds is 0.3, and you are getting back an estimate of 0.3341396
+# Comparison with unweighted models
+fit.cox <- coxph(Surv(tpoint2, tpoint, Y) ~ A + cluster(id), data = aggregate.data, robust =TRUE)
+ext.cox(fit.cox)
+fit.cox.adj <- coxph(Surv(tpoint2, tpoint, Y) ~ A + L + cluster(id), data = aggregate.data, robust =TRUE)
+ext.cox(fit.cox.adj)
+```
+
 ### Author 
 * Ehsan Karim :octocat: (only R porting from the [SAS](https://cdn1.sph.harvard.edu/wp-content/uploads/sites/148/2012/10/simulate_snaftm.txt) code). I wrote them in R basically to understand the mechanism, but the SAS / SAS IML / Stata codes (I have them as well, available upon request) are faster than this. Feel free to [report](http://www.ehsankarim.com/) any errors / update suggestions. 
 
