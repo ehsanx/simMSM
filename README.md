@@ -99,11 +99,12 @@ aggregate.data$sw <- unlist(tapply(aggregate.data$wwp0/aggregate.data$wwp, aggre
 summary(aggregate.data$sw)
 #   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 # 0.1396  0.7329  0.9091  1.0013  1.1788  6.2040 
-require(survival)
+```
 
 Below are codes of estimating treatment effect from the weighted outcome model
 
 ```R
+require(survival)
 # Step 5: Weighted outcome model
 fit.msm.w <- coxph(Surv(tpoint2, tpoint, Y) ~ A + cluster(id), data = aggregate.data, weight = w, robust =TRUE)
 ext.cox(fit.msm.w)
