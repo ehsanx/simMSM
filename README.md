@@ -79,7 +79,8 @@ ext.cox <- function(fit){
                         confint(fit)["A",],x$coef["A", "Pr(>|z|)"], x$used.robust,
                         mean(fit$weights), range(fit$weights) ))
   }
-  names(res) <- c("n", "events", "coef", "se", "lowerci", "upperci", "pval", "robust", "meanW", "minW", "maxW")
+  names(res) <- c("n", "events", "coef", "se", "lowerci", "upperci", 
+                  "pval", "robust", "meanW", "minW", "maxW")
   return(res)
 }
 ```
