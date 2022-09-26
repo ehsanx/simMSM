@@ -106,9 +106,11 @@ Below are codes of estimating treatment effect from the weighted outcome model
 ```R
 require(survival)
 # Step 5: Weighted outcome model
-fit.msm.w <- coxph(Surv(tpoint2, tpoint, Y) ~ A + cluster(id), data = aggregate.data, weight = w, robust =TRUE)
+fit.msm.w <- coxph(Surv(tpoint2, tpoint, Y) ~ A + cluster(id), 
+              data = aggregate.data, weight = w, robust =TRUE)
 ext.cox(fit.msm.w)
-fit.msm <- coxph(Surv(tpoint2, tpoint, Y) ~ A + cluster(id), data = aggregate.data, weight = sw, robust =TRUE)
+fit.msm <- coxph(Surv(tpoint2, tpoint, Y) ~ A + cluster(id), 
+              data = aggregate.data, weight = sw, robust =TRUE)
 ext.cox(fit.msm)
 #           n       events         coef           se      lowerci      upperci         pval       robust 
 #9.481300e+04 1.147000e+03 3.341396e-01 6.882629e-02 1.992425e-01 4.690367e-01 1.204931e-06 1.000000e+00 
@@ -121,9 +123,11 @@ Below are additional codes for unweighted models
 
 ```R
 # Comparison with unweighted models
-fit.cox <- coxph(Surv(tpoint2, tpoint, Y) ~ A + cluster(id), data = aggregate.data, robust =TRUE)
+fit.cox <- coxph(Surv(tpoint2, tpoint, Y) ~ A + cluster(id), 
+                  data = aggregate.data, robust =TRUE)
 ext.cox(fit.cox)
-fit.cox.adj <- coxph(Surv(tpoint2, tpoint, Y) ~ A + L + cluster(id), data = aggregate.data, robust =TRUE)
+fit.cox.adj <- coxph(Surv(tpoint2, tpoint, Y) ~ A + L + cluster(id), 
+                  data = aggregate.data, robust =TRUE)
 ext.cox(fit.cox.adj)
 ```
 ### Author 
