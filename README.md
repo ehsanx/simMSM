@@ -42,7 +42,7 @@ simmsm(subjects = 2500, tpoints = 10, psi = 0.3, n = 1000)
 
 ## Estimation of parameter
 
-Below is an example where we generate 10,000 subjects, each with up to 10 followup times. Log-odds is 0.3.
+Below is an example where we generate 1 large data with n=10,000 subjects, each with up to 10 followup times. Log-odds is 0.3.
 
 ```R
 require(simMSM)
@@ -118,7 +118,7 @@ ext.cox(fit.msm)
 #       meanW         minW         maxW 
 #1.001264e+00 1.395881e-01 6.203989e+00 
 ```
-Note that log-odds is 0.3, and you are getting back an estimate of 0.3341396.
+Note that log-odds (`psi`) was `0.3` when we generated the data, and you are getting back an estimate of `0.3341396`.
 
 Below are additional codes for unweighted models
 
